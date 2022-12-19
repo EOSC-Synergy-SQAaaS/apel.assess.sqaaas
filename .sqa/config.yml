@@ -1,0 +1,58 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.7
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/apel/apel:
+      branch: dev
+      repo: https://github.com/apel/apel
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/apel/apel git:
+        commands:
+        - /usr/bin/env sh .sqa/script.slimy-yellow-grouse.sh
+        container: qc.acc_grumpy-khaki-balinese
+  QC.Doc:
+    repos:
+      github.com/apel/apel find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.trippy-grey-starfish.sh
+        container: qc.doc_skanky-amethyst-beetle
+      github.com/apel/apel git:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleepy-emerald-barracuda.sh
+        container: qc.doc_grumpy-puce-capuchin
+      github.com/apel/apel markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.breezy-chocolate-chameleon.sh
+        container: qc.doc_surly-eggplant-hornet
+  QC.Lic:
+    repos:
+      github.com/apel/apel licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.snippy-magenta-quoll.sh
+        container: qc.lic_whiny-bronze-affenpinscher
+  QC.Sec:
+    repos:
+      github.com/apel/apel bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.shabby-amber-clam.sh
+        container: qc.sec_sloppy-chestnut-crab
+  QC.Sty:
+    repos:
+      github.com/apel/apel flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.pokey-chocolate-crane.sh
+        container: qc.sty_gamy-aquamarine-cow
+  QC.Ver:
+    repos:
+      github.com/apel/apel get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.zippy-peach-wolf.sh
+        container: qc.ver_pretty-auburn-reindeer
+timeout: 5400
